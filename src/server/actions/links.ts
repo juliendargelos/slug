@@ -81,7 +81,7 @@ export const createLink = async (
 
   // Check if the user has reached the limit:
   const limit = currentUser.user?.limitLinks;
-  if (count >= limit) {
+  if (limit >= 0 && count >= limit) {
     return {
       limit: true,
       error: `You have reached the limit of ${limit} links.`,
