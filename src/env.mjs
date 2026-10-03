@@ -24,7 +24,7 @@ export const env = createEnv({
     NEXT_PUBLIC_URL: z.string(),
   },
   runtimeEnv: {
-    NEXT_PUBLIC_URL: process.env.PUBLIC_URL,
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
     TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
     DATABASE_URL: process.env.DATABASE_URL,
