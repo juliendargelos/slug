@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import authConfig from "@/auth.config";
+import { env } from "@/env.mjs";
 
 import { NextResponse } from "next/server";
 
@@ -41,6 +42,11 @@ export default auth(async (req) => {
         new URL(DEFAULT_LOGIN_REDIRECT_URL, nextUrl),
       );
     }
+
+    if (nextUrl.pathname === "/register" && !env.AUTH_SIGNUP_ENABLED) {
+      return NextResponse.redirect(new URL("/auth", nextUrl));
+    }
+
     return;
   }
 

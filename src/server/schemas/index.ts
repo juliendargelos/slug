@@ -76,6 +76,35 @@ export const getSingleLinkSchema = z.object({
   linkId: z.number(),
 });
 
+export const loginSchema = z.object({
+  email: z.string().email({
+    message: "Email is required and must be a valid email address.",
+  }),
+  password: z.string().min(1, {
+    message: "Password is required.",
+  }),
+});
+
+export const registerSchema = z
+  .object({
+    email: z.string().email({
+      message: "Email is required and must be a valid email address.",
+    }),
+    password: z.string().min(6, {
+      message: "Password must be at least 6 characters long.",
+    }),
+    confirmPassword: z.string().min(6, {
+      message: "Password must be at least 6 characters long.",
+    }),
+    name: z.string().min(1, {
+      message: "Name is required.",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
+  });
+
 export const CreateTagSchema = z.object({
   name: z.string().min(1, { message: "Tag name is required." }).max(15, {
     message: "Tag name must be less than 15 characters.",

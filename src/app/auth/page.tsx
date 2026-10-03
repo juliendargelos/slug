@@ -8,8 +8,9 @@ import {
 import { cn } from "@/utils";
 
 import { sharedAnimationCards } from "@/components/auth/animation-cards";
-import SocialLogin from "@/components/auth/social-login";
+import SignIn from "@/components/auth/sign-in";
 import Logo from "@/components/icons/logo";
+import { env } from "@/env.mjs";
 
 const AuthLoginPage = () => {
   return (
@@ -20,11 +21,11 @@ const AuthLoginPage = () => {
           Log in to Slug
         </CardTitle>
         <CardDescription className="duration-500 animate-in fade-in-30">
-          Log in with your favorite social provider to get started:
+          Enter your email and password to continue.
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4 duration-500 animate-in fade-in-30">
-        <SocialLogin />
+        <SignIn signupEnabled={env.AUTH_SIGNUP_ENABLED} />
       </CardContent>
     </Card>
   );

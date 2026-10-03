@@ -1,13 +1,15 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import Credentials from "next-auth/providers/credentials";
+import argon2 from "argon2";
 
 import { db } from "@/server/db";
 import authConfig from "@/auth.config";
-import { getUserById } from "./server/utils/user";
+import { getUserByEmail, getUserById } from "./server/utils/user";
 import { getTwoFactorConfirmationByUserId } from "./server/utils/two-factor-confirm";
-import { getAccountByUserId } from "./server/utils/account";
 import { env } from "./env.mjs";
 import { checkBlockedEmail } from "./server/actions/auth";
+import { loginSchema } from "./server/schemas";
 
 export const {
   handlers: { GET, POST },
@@ -24,19 +26,8 @@ export const {
     signIn: "/auth",
     error: "/auth/error",
   },
-  events: {
-    async linkAccount({ user }) {
-      await db.user.update({
-        where: { id: user.id },
-        data: { emailVerified: new Date() },
-      });
-    },
-  },
   callbacks: {
-    async signIn({ user, account }) {
-      // Allow OAuth without email verification
-      if (account?.provider !== "credentials") return true;
-
+    async signIn({ user }) {
       const existingUser = await getUserById(user.id);
 
       // Disable sign in for blocked users
@@ -87,9 +78,7 @@ export const {
 
       if (!existingUser) return token;
 
-      const existingAccount = await getAccountByUserId(existingUser.id);
-
-      token.isOAuth = !!existingAccount;
+      token.isOAuth = false;
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
@@ -101,4 +90,24 @@ export const {
     },
   },
   ...authConfig,
+  providers: [
+    Credentials({
+      async authorize(credentials) {
+        const validatedCredentials = loginSchema.safeParse(credentials);
+
+        if (!validatedCredentials.success) return null;
+
+        const { email, password } = validatedCredentials.data;
+        const user = await getUserByEmail(email);
+
+        if (!user?.password) return null;
+
+        try {
+          return (await argon2.verify(user.password, password)) ? user : null;
+        } catch {
+          return null;
+        }
+      },
+    }),
+  ],
 });

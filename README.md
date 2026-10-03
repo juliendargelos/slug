@@ -101,14 +101,8 @@ TURSO_AUTH_TOKEN=
 
 # Auth.js =>
 AUTH_SECRET=
-
-# Github Provider =>
-GITHUB_ID=
-GITHUB_CLIENT_SECRET=
-
-# Google Provider =>
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
+# Set to true to allow new account registration. Defaults to false.
+AUTH_SIGNUP_ENABLED=false
 ```
 
 **Database:**
@@ -121,14 +115,6 @@ GOOGLE_CLIENT_SECRET=
 
 - [Get Auth.js **Secret**](https://authjs.dev/getting-started/installation#setup-environment).
 - ``AUTH_URL`` is the URL of your Auth.js API, for example, ``/api/auth``. You can change it in the [**``auth.ts`` file**](https://github.com/pheralb/slug/blob/next/src/auth.ts#L20).
-
-**Github Credentials:**
-
-- [Create a new OAuth App](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app).
-
-**Google Credentials:**
-
-- [Create a new OAuth 2.0 App from Google API Console](https://developers.google.com/identity/protocols/oauth2#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name-.).
 
 5. Generate a new migration file with Prisma:
 
@@ -168,10 +154,6 @@ This is the roadmap I will be following for the complete migration to v3:
 > - *🔔* = Stable, but unexpected errors may appear.
 > - *⚙️* = In progress.
 
-⬆️ **Known issues:**
-
-- ⚙️ Fix issue when logging in with different provider but with the same email. Redirect to an existing route in the app ([authjs error](https://authjs.dev/reference/core/errors#accountnotlinked)).
-
 ⬆️ **Dependencies:**
 
 - ✅ Update `@prisma/adapter-libsql`, `@prisma/client` & `prisma` to the stable version when it's released.
@@ -179,10 +161,8 @@ This is the roadmap I will be following for the complete migration to v3:
 
 ⬆️ **Auth:**
 
-- ✅ Sign In with Github.
-- 🔔 Sign In with Google.
-
-🔔 Only for users who have not previously logged in with an existing email address in their Github account. This is an issue that will be worked on soon.
+- ✅ Sign in with email and password.
+- ✅ Optional self-service account registration with `AUTH_SIGNUP_ENABLED=true`.
 
 ⬆️ **Middleware:**
 

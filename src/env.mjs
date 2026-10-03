@@ -15,11 +15,10 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     AUTH_SECRET: z.string(),
-    //AUTH_URL: z.string(),
-    GITHUB_ID: z.string(),
-    GITHUB_CLIENT_SECRET: z.string(),
-    GOOGLE_ID: z.string(),
-    GOOGLE_CLIENT_SECRET: z.string(),
+    AUTH_SIGNUP_ENABLED: z
+      .enum(["true", "false"])
+      .default("false")
+      .transform((value) => value === "true"),
   },
   runtimeEnv: {
     TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
@@ -27,11 +26,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     AUTH_SECRET: process.env.AUTH_SECRET,
-    // AUTH_URL: process.env.AUTH_URL,
-    GITHUB_ID: process.env.GITHUB_ID,
-    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
-    GOOGLE_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    AUTH_SIGNUP_ENABLED: process.env.AUTH_SIGNUP_ENABLED,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,
