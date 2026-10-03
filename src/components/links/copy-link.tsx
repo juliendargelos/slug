@@ -4,6 +4,7 @@ import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { toast } from "sonner";
 import { DropdownMenuItem } from "@/ui/dropdown-menu";
 import { ClipboardIcon } from "lucide-react";
+import { env } from "@/env.mjs";
 
 interface CopyLinkProps {
   slug: string;
@@ -12,7 +13,7 @@ interface CopyLinkProps {
 
 const CopyLinkDropdown = (props: CopyLinkProps) => {
   const [, copy] = useCopyToClipboard();
-  const url = "https://slug.vercel.app";
+  const url = env.NEXT_PUBLIC_URL;
 
   const handleCopy = (text: string) => () => {
     copy(text)

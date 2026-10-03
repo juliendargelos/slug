@@ -7,6 +7,7 @@ import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { env } from "@/env.mjs";
 
 import { updateLink } from "@/server/actions/links";
 
@@ -76,7 +77,7 @@ const EditLink = (props: EditLinkProps) => {
 
       // If not any changes in the tags, return:
       toast.success("Link edited successfully.", {
-        description: `Url: https://slug.vercel.app/${values.slug}`,
+        description: `Url: ${env.NEXT_PUBLIC_URL}/${values.slug}`,
         duration: 10000,
         closeButton: true,
       });

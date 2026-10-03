@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { env } from "@/env.mjs";
 
 // Styles:
 import "@/styles/globals.css";
@@ -35,7 +36,7 @@ const geistMonoVariable = localFont({
 
 // Metadata:
 export const metadata: Metadata = {
-  metadataBase: new URL("https://slug.vercel.app"),
+  metadataBase: new URL(env.NEXT_PUBLIC_URL as string),
   title: {
     default: "Slug - A beautifully open-source URL shortener",
     template: "%s - Slug",
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Slug",
     description: "An beautifully open-source URL shortener",
-    url: "https://slug.vercel.app/images/og_image.png",
+    url: `${env.NEXT_PUBLIC_URL}/images/og_image.png`,
     siteName: "Slug - An beautifully open-source URL shortener",
     locale: "en_US",
     type: "website",

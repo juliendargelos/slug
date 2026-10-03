@@ -20,7 +20,11 @@ export const env = createEnv({
       .default("false")
       .transform((value) => value === "true"),
   },
+  client: {
+    NEXT_PUBLIC_URL: z.string(),
+  },
   runtimeEnv: {
+    NEXT_PUBLIC_URL: process.env.PUBLIC_URL,
     TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
     TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
     DATABASE_URL: process.env.DATABASE_URL,

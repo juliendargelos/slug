@@ -2,6 +2,7 @@
 
 import type { Links } from "@prisma/client";
 import QRCode from "react-qr-code";
+import { env } from "@/env.mjs";
 
 import {
   DialogClose,
@@ -64,7 +65,7 @@ const CopyQR = ({ linkInfo }: CopyQRProps) => {
             id="qr-code"
             size={128}
             style={{ height: "auto" }}
-            value={`https://slug.vercel.app/${linkInfo.slug}`}
+            value={`${env.NEXT_PUBLIC_URL}/${linkInfo.slug}`}
             viewBox={`0 0 128 128`}
           />
         </div>
