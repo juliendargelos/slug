@@ -3,8 +3,6 @@ import type { ReactNode } from "react";
 import DashboardRoutesComponent from "@/components/dashboard-routes";
 import Footer from "@/components/layout/footer";
 import { cn } from "@/utils";
-import Alert from "@/ui/alert";
-import Link from "next/link";
 
 interface DashboardLayoutProps {
   children: ReactNode;

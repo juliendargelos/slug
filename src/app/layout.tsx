@@ -36,7 +36,7 @@ const geistMonoVariable = localFont({
 
 // Metadata:
 export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_URL as string),
+  metadataBase: new URL(env.NEXT_PUBLIC_URL),
   title: {
     default: "Slug - A beautifully open-source URL shortener",
     template: "%s - Slug",
