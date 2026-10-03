@@ -25,18 +25,6 @@ const DashboardLayout = (props: DashboardLayoutProps) => {
       <main
         className={cn("container my-[68px] flex w-full flex-col items-center")}
       >
-        <Alert variant="warning" className="mb-4 w-full">
-          <p>
-            The creation of new links has been temporarily disabled. You can
-            download the links on your{" "}
-            <Link
-              href="/dashboard/settings"
-              className="underline underline-offset-2"
-            >
-              account settings page
-            </Link>
-          </p>
-        </Alert>
         {props.children}
       </main>
       <Footer className="fixed bottom-0 py-4" />
